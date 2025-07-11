@@ -265,7 +265,7 @@ if (isset($user_id) && !empty($user_id)) {
             <ul>
               <li><a href="<?php echo $siteurl; ?>index.php" class="active">Home</a></li>
               <li><a href="<?php echo $siteurl; ?>about.php">About Us</a></li>
-              <li><a href="<?php echo $siteurl; ?>blog.php">Blog</a></li>
+            <!---  <li><a href="<?php echo $siteurl; ?>blog.php">Blog</a></li> --->
               <li><a href="<?php echo $siteurl; ?>loyalty-program.php">Loyalty Program</a></li>
 
 

@@ -6,10 +6,10 @@
         <div class="row gy-4">
           <div class="col-lg-4 col-md-6">
             <div class="footer-widget footer-about">
-              <a href="index.html" class="logo">
-                <span class="sitename">FashionStore</span>
+              <a href="<?php echo $siteurl; ?>index" class="logo">
+                <img src="<?php echo $siteurl . $imagePath . $siteimg; ?>" alt="<?php echo $siteName; ?>" class="img-fluid">
               </a>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nibh vehicula, facilisis magna ut, consectetur lorem. Proin eget tortor risus.</p>
+              <p><?php echo $sitedescription; ?></p>
 
               <div class="social-links mt-4">
                 <h5>Connect With Us</h5>
@@ -29,12 +29,13 @@
             <div class="footer-widget">
               <h4>Shop</h4>
               <ul class="footer-links">
-                <li><a href="category.html">New Arrivals</a></li>
-                <li><a href="category.html">Bestsellers</a></li>
-                <li><a href="category.html">Women's Clothing</a></li>
-                <li><a href="category.html">Men's Clothing</a></li>
-                <li><a href="category.html">Accessories</a></li>
-                <li><a href="category.html">Sale</a></li>
+                <li><a href="<?php echo $siteurl; ?>about.php">About Us</a></li>
+                <li><a href="<?php echo $siteurl; ?>contact.php">Contact Us</a></li>
+                <li><a href="<?php echo $siteurl; ?>privacy.php">Privacy Policy</a></li>
+                <li><a href="<?php echo $siteurl; ?>cookie-policy">Cookie Policy</a></li>
+                <li><a href="<?php echo $siteurl; ?>terms">Terms of Use</a></li>
+                <li><a href="<?php echo $siteurl; ?>why-us">Why Us?</a></li>
+                <li><a href="<?php echo $siteurl; ?>blog">News and Press Releases</a></li>
               </ul>
             </div>
           </div>

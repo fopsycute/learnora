@@ -186,12 +186,12 @@ redirectToDashboardIfSubAdmin();
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-folder-open"></i>
-                <div data-i18n="Layouts">Reports</div>
+                <div data-i18n="Layouts">Events</div>
               </a>
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="add-report.php" class="menu-link">
+                  <a href="add-training.php" class="menu-link">
                     <div data-i18n="Without menu">Add New</div>
                   </a>
                 </li>
