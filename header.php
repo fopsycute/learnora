@@ -300,7 +300,7 @@ if (isset($user_id) && !empty($user_id)) {
             $category_name = $row['category_name'];
             $slugs = $row['slug'];
             echo '<div class="col-md-4 col-6 mb-1">';
-            echo '<a class="dropdown-item" style="white-space: normal;" href="' . $siteurl . 'category?slugs=' . $slugs . '">' . $category_name . '</a>';
+            echo '<a class="dropdown-item" style="white-space: normal;" href="' . $siteurl . 'category.php?slugs=' . $slugs . '">' . $category_name . '</a>';
             echo '</div>';
             $count++;
         }
