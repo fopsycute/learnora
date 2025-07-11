@@ -4,11 +4,15 @@ error_reporting(E_ALL); ini_set('display_errors', 1); ini_set('log_errors', 1);
 
 
 $db_host = "localhost"; 
-$db_username = "root"; 
+
+/*
+$db_username = "projectr_learnorastore"; 
 $db_pass = ""; 
 $db_name = "learnora";
-
-
+*/
+$db_username = "root"; 
+$db_pass = "Y34GgwK(]h82Yg"; 
+$db_name = "projectr_learn";
 $con = mysqli_connect ("$db_host","$db_username","$db_pass","$db_name");
 mysqli_query($con, "SET time_zone = '+01:00'"); // Africa/Lagos
 $siteprefix="ln_";
@@ -22,10 +26,11 @@ $adminimagePath='../../uploads/';
 $sitecurrency="₦";
 $sitecurrencyCode="&#8358;";
 $documentPath='documents/';
-$affiliateurl='http://text/learnora/affiliate';
+$affiliateurl='http://affiliate.learnora.projectreporthub.ng/';
+$adminurl='http://admin.learnora.projectreporthub.ng/';
 /*
 $affiliateurl='https://affiliate.learnora.ng/';
-$adminurl='https://admin.learnora.ng/';
+
 */
 
 $sql = "SELECT * from ".$siteprefix."site_settings";
