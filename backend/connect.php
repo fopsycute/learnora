@@ -10,7 +10,7 @@ $db_username = "projectr_learnorastore";
 $db_pass = ""; 
 $db_name = "learnora";
 */
-$db_username = "root"; 
+$db_username = "projectr_learnorastore"; 
 $db_pass = "Y34GgwK(]h82Yg"; 
 $db_name = "projectr_learn";
 $con = mysqli_connect ("$db_host","$db_username","$db_pass","$db_name");
