@@ -159,7 +159,7 @@ include "backend/actions.php";
         <div class="d-flex py-3 align-items-center justify-content-between">
 
           <!-- Logo -->
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="index" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
        <img src="<?php echo $siteurl . $imagePath . $siteimg; ?>" alt=""> 
         
