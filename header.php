@@ -81,7 +81,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 $excluded_pages = array('cart.php', 'pay_success.php',  'checkout.php', 'free_order_handler.php',
 'dashboard.php','loyalty-status.php','my_orders.php','manual_orders.php', 'wallet.php','blog.php',
 'notifications.php','sales.php','reviews.php','my_orders.php','order_details.php','settings.php','tickets.php',
-'change-password.php','create_ticket.php','saved-models.php','add-training.php','all-training.php','events.php',
+'change-password.php','create_ticket.php','saved-models.php','add-training.php','all-training.php',
 'withdrawhistory.php','my_wishlist.php');
 if (in_array($current_page, $excluded_pages)) {
     checkActiveLog($active_log); 
