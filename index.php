@@ -85,7 +85,7 @@ $rating_data = calculateRating($training_id, $con, $siteprefix);
 ?>
        </div>
   <div class="text-center mt-5" data-aos="fade-up">
-          <a href="<?php echo $siteurl; ?>marketplace" class="view-all-btn">View All Products <i class="bi bi-arrow-right"></i></a>
+          <a href="<?php echo $siteurl; ?>marketplace" class="view-all-btn">View All Events <i class="bi bi-arrow-right"></i></a>
 
 		  <?php } else {  debug('No reports not found.'); }?>
         </div>

@@ -6,10 +6,13 @@ error_reporting(E_ALL); ini_set('display_errors', 1); ini_set('log_errors', 1);
 $db_host = "localhost"; 
 
 /*
-$db_username = "projectr_learnorastore"; 
+
+
+$db_username = "root"; 
 $db_pass = ""; 
 $db_name = "learnora";
 */
+
 $db_username = "projectr_learnorastore"; 
 $db_pass = "Y34GgwK(]h82Yg"; 
 $db_name = "projectr_learn";

@@ -1,8 +1,6 @@
 <?php 
 include "backend/connect.php";  
 
-
-
 //previous page
 
 $_SESSION['previous_page'] = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -78,6 +76,19 @@ if (mysqli_affected_rows($con) == 0) {
 include "backend/start_order.php";
 include "backend/actions.php"; 
 
+//exclude pages tht require user to be logged in
+$current_page = basename($_SERVER['PHP_SELF']);
+$excluded_pages = array('cart.php', 'pay_success.php',  'checkout.php', 'free_order_handler.php',
+'dashboard.php','loyalty-status.php','my_orders.php','manual_orders.php', 'wallet.php','blog.php',
+'notifications.php','sales.php','reviews.php','my_orders.php','order_details.php','settings.php','tickets.php',
+'change-password.php','create_ticket.php','saved-models.php','add-training.php','all-training.php','events.php',
+'withdrawhistory.php','my_wishlist.php');
+if (in_array($current_page, $excluded_pages)) {
+    checkActiveLog($active_log); 
+} else {
+    //ifLoggedin($active_log);
+}
+
 ?>
 
 
@@ -88,7 +99,7 @@ include "backend/actions.php";
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - FashionStore Bootstrap Template</title>
+  <title>Learnora</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -132,19 +143,19 @@ include "backend/actions.php";
           <!-- Add this block for your links, visible on all screens -->
 <div class="col-12 my-2 my-lg-0">
   <ul class="list-unstyled d-flex flex-wrap mb-0 justify-content-center justify-content-lg-start">
-    <li class="bg-secondary text-white p-2 me-2">
+    <li class="bg-secondary text-white p-2 m-1">
       <a class="text-white text-small" href="<?php echo $siteurl; ?>loyalty-program.php">Loyalty Program</a>
     </li>
-    <li class="bg-primary text-white p-2 me-2">
+    <li class="bg-primary text-white p-2 m-1">
       <a class="text-white text-small" href="<?php echo $siteurl; ?>affiliate-details.php">Affiliate Program</a>
     </li>
-    <li class="bg-secondary text-white p-2 me-2 ">
+    <li class="bg-secondary text-white p-2 m-1 ">
       <a class="text-white text-small" href="<?php echo $siteurl; ?>marketplace.php">Marketplace</a>
     </li>
      <?php if($active_log==0){ ?>
-                    <li class="bg-dark-orange p-2"><a class="" href="<?php echo $siteurl; ?>become_a_trainer.php">Become a Trainer</a></li>
+                    <li class="bg-primary p-2 m-1"><a class="text-white text-small" href="<?php echo $siteurl; ?>become_a_trainer.php">Become a Trainer</a></li>
                     <?php } else {?>
-                    <li class="bg-dark-orange p-2"><a class="" href="<?php echo $siteurl; ?>logout.php">Logout</a></li>
+                    <li class="bg-primary p-2 m-1"><a class="text-white text-small" href="<?php echo $siteurl; ?>logout.php">Logout</a></li>
                     <?php } ?>
   </ul>
 </div>
