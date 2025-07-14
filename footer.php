@@ -143,18 +143,18 @@
   <!-- Vendor JS Files -->
       <script src="https://js.paystack.co/v1/inline.js"></script> 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/drift-zoom/Drift.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/php-email-form/validate.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/aos/aos.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/drift-zoom/Drift.min.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/vendor/purecounter/purecounter_vanilla.js"></script>
 
   <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="<?php echo $siteurl; ?>assets/js/main.js"></script>
   <script type="text/javascript">const paymentForm = document.getElementById('paymentForm');
 paymentForm.addEventListener("submit", payWithPaystack, false);
 function payWithPaystack(e) {

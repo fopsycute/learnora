@@ -69,7 +69,7 @@
                         <img src="<?php echo htmlspecialchars($picture); ?>" alt="<?php echo htmlspecialchars($item['training_title']); ?>" class="img-fluid" loading="lazy">
                     </div>
                     <div class="product-details">
-                        <a href="<?php echo $siteurl; ?>product/<?php echo $slug; ?>">
+                        <a href="<?php echo $siteurl; ?>events/<?php echo $slug; ?>">
                             <h6 class="product-title"><?php echo htmlspecialchars($item['training_title']); ?></h6>
                         </a>
                         <div class="product-meta">

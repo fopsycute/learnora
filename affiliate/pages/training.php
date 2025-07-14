@@ -61,7 +61,7 @@
                         
                         <td>
                             <!-- View Product Button -->
-                            <a href="<?php echo $siteurl;?>events?slug=<?php echo $slug; ?>" target="_blank" class="btn btn-info btn-sm me-2">View Product</a>
+                            <a href="<?php echo $siteurl;?>events/<?php echo $slug; ?>" target="_blank" class="btn btn-info btn-sm me-2">View Product</a>
                         </td>
                         <td>
                             <?php if ($pricing != 'free'): ?>
