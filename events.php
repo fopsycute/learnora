@@ -190,8 +190,20 @@ $user_review = $existing_review_result->fetch_assoc();
                 <div id="description" class="accordion-collapse collapse show">
                   <div class="accordion-body">
                     <div class="product-description">
-
-                      <p><?php echo $course_description; ?></p>
+<?php
+$desc_words = explode(' ', strip_tags($course_description));
+$desc_short = implode(' ', array_slice($desc_words, 0, 30));
+$isLongDesc = count($desc_words) > 30;
+?>
+<p>
+  <span class="desc-short"><?php echo htmlspecialchars($desc_short); ?><?php if ($isLongDesc) echo '...'; ?></span>
+  <?php if ($isLongDesc): ?>
+    <span class="desc-full" style="display:none;"><?php echo $course_description; ?></span>
+    <br>
+    <button type="button" class="btn btn-link btn-sm p-0 desc-read-more" style="text-decoration: none;">Read More</button>
+    <button type="button" class="btn btn-link btn-sm p-0 desc-read-less" style="text-decoration: none; display:none;">Read Less</button>
+  <?php endif; ?>
+</p>
                     </div>
                   </div>
                 </div>
@@ -625,27 +637,64 @@ if ($loyalty_result && mysqli_num_rows($loyalty_result) > 0) {
 
                     </div>
 
-                    <div class="col-12">
-                      <div class="table-requirements">
-  <h6>Visa Requirement</h6>
-  <p><strong>Nigerian Trainings:</strong> If you do not live in Nigeria and wish to attend one of our conferences, you may need to secure a visitor visa. Advance travel planning and early visa application are important, since applications are subject to a greater degree of scrutiny than in the past.</p>
+                
+<div class="col-12">
+  <div class="table-requirements">
 
-  <p>You can download a letter of invitation if needed. <strong>Please Note:</strong> we do not provide personalized letters of invitation. Attendees who are citizens of Visa Waiver Program participating countries generally do not need a letter of invitation.</p>
+    <!-- Visa Requirement Section -->
+    <div class="collapsible-section mb-4">
+      <h6>Visa Requirement</h6>
+      <?php
+      $visa_text = "<strong>Nigerian Trainings:</strong> If you do not live in Nigeria and wish to attend one of our conferences, you may need to secure a visitor visa. Advance travel planning and early visa application are important, since applications are subject to a greater degree of scrutiny than in the past.
 
-  <p>Visit <a href="https://portal.immigration.gov.ng/pages/welcome" target="_blank">https://portal.immigration.gov.ng/pages/welcome</a> for complete information on how to apply for a visitor visa.</p>
+You can download a letter of invitation if needed. <strong>Please Note:</strong> we do not provide personalized letters of invitation. Attendees who are citizens of Visa Waiver Program participating countries generally do not need a letter of invitation.
 
-  <p><strong>Foreign Trainings:</strong> If you want to attend the training outside Nigeria, you would need a visa. 365 Market Research Reports does not secure visa on behalf of trainees. Please visit the embassy of the country where the training will take place for your visa.</p>
+Visit <a href=\"https://portal.immigration.gov.ng/pages/welcome\" target=\"_blank\">https://portal.immigration.gov.ng/pages/welcome</a> for complete information on how to apply for a visitor visa.
 
-  <hr>
+<strong>Foreign Trainings:</strong> If you want to attend the training outside Nigeria, you would need a visa. 365 Market Research Reports does not secure visa on behalf of trainees. Please visit the embassy of the country where the training will take place for your visa.";
+      $visa_words = explode(' ', strip_tags($visa_text));
+      $visa_short = implode(' ', array_slice($visa_words, 0, 30));
+      $visa_long = $visa_text;
+      $visa_is_long = count($visa_words) > 30;
+      ?>
+      <p>
+        <span class="short-desc"><?php echo $visa_short; ?><?php if ($visa_is_long) echo '...'; ?></span>
+        <?php if ($visa_is_long): ?>
+          <span class="full-desc" style="display:none;"><?php echo $visa_long; ?></span>
+          <br>
+          <button type="button" class="btn btn-link btn-sm p-0 read-more-btn" style="text-decoration: none;">Read More</button>
+          <button type="button" class="btn btn-link btn-sm p-0 read-less-btn" style="text-decoration: none; display:none;">Read Less</button>
+        <?php endif; ?>
+      </p>
+    </div>
 
-  <h6>Cancellation Policy</h6>
-  <p>All cancellations must be received in writing. Cancellations made after three (3) days to the event date will result in full registration fee.</p>
+    <!-- Cancellation Policy Section -->
+    <div class="collapsible-section">
+      <h6>Cancellation Policy</h6>
+      <?php
+      $cancel_text = "All cancellations must be received in writing. Cancellations made after three (3) days to the event date will result in full registration fee.
 
-  <p>Cancellations would attract twenty percent (20%) of the ticket price as penalty. Persons who sign up for the training but do not attend will be charged the full registration price.</p>
+Cancellations would attract twenty percent (20%) of the ticket price as penalty. Persons who sign up for the training but do not attend will be charged the full registration price.
 
-  <p>Substitutions or name changes can be made at any time. Cancellation requests can be sent by email to <a href="mailto:hello@learnora.ng">hello@learnora.ng</a> or by call to <a href="tel:+2348033782777">+234 (0) 803 3782 777</a> or <a href="tel:+23412952413">+234 (01) 29 52 413</a>.</p>
+Substitutions or name changes can be made at any time. Cancellation requests can be sent by email to <a href=\"mailto:hello@learnora.ng\">hello@learnora.ng</a> or by call to <a href=\"tel:+2348033782777\">+234 (0) 803 3782 777</a> or <a href=\"tel:+23412952413\">+234 (01) 29 52 413</a>.";
+      $cancel_words = explode(' ', strip_tags($cancel_text));
+      $cancel_short = implode(' ', array_slice($cancel_words, 0, 30));
+      $cancel_long = $cancel_text;
+      $cancel_is_long = count($cancel_words) > 30;
+      ?>
+      <p>
+        <span class="short-desc"><?php echo $cancel_short; ?><?php if ($cancel_is_long) echo '...'; ?></span>
+        <?php if ($cancel_is_long): ?>
+          <span class="full-desc" style="display:none;"><?php echo $cancel_long; ?></span>
+          <br>
+          <button type="button" class="btn btn-link btn-sm p-0 read-more-btn" style="text-decoration: none;">Read More</button>
+          <button type="button" class="btn btn-link btn-sm p-0 read-less-btn" style="text-decoration: none; display:none;">Read Less</button>
+        <?php endif; ?>
+      </p>
+    </div>
+
+  </div>
 </div>
-	  </div>
         </div>               
 </div>
 	    </div>

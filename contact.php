@@ -45,15 +45,15 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <form method="POST" data-aos="fade-up" data-aos-delay="200">
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="" value="<?php echo $display_name; ?>" readonly>
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required=""  value="<?php echo $email_address ; ?>" readonly>
                 </div>
 
                 <div class="col-md-12">
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="col-md-12 text-center">
-                 <button type="submit" name="submit">Send Message</button>
+                 <button type="submit" name="submit-message" class="btn btn-primary">Send Message</button>
                 </div>
 
               </div>

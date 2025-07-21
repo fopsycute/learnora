@@ -1043,6 +1043,96 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  const likeBtn = document.getElementById('likeBtn');
+  if (!likeBtn) return;
+
+  const blogId = likeBtn.getAttribute('data-blog-id');
+  const likeUrl = likeBtn.getAttribute('data-like-url');
+  const likeCountEl = document.getElementById('likeCount');
+
+  likeBtn.addEventListener('click', function () {
+    fetch(likeUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `blog_id=${blogId}`
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          likeCountEl.textContent = data.likes;
+        } else {
+          alert(data.message || 'You already liked this post.');
+        }
+      });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const shareBtn = document.getElementById('webShareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function () {
+      const title = shareBtn.getAttribute('data-title');
+      const url = shareBtn.getAttribute('data-url');
+
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: title,
+          url: url
+        }).catch(err => {
+          console.error('Share failed:', err);
+        });
+      } else {
+        alert('Sharing is not supported in this browser. Please use the social icons.');
+      }
+    });
+  }
+});
+document.addEventListener('DOMContentLoaded', function() {
+  function setupReadMore(section) {
+    var readMoreBtn = section.querySelector('.read-more-btn');
+    var readLessBtn = section.querySelector('.read-less-btn');
+    var shortDesc = section.querySelector('.short-desc');
+    var fullDesc = section.querySelector('.full-desc');
+    if(readMoreBtn && readLessBtn && shortDesc && fullDesc) {
+      readMoreBtn.addEventListener('click', function() {
+        shortDesc.style.display = 'none';
+        fullDesc.style.display = 'inline';
+        readMoreBtn.style.display = 'none';
+        readLessBtn.style.display = 'inline';
+      });
+      readLessBtn.addEventListener('click', function() {
+        shortDesc.style.display = 'inline';
+        fullDesc.style.display = 'none';
+        readMoreBtn.style.display = 'inline';
+        readLessBtn.style.display = 'none';
+      });
+    }
+  }
+  document.querySelectorAll('.collapsible-section').forEach(setupReadMore);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var readMoreBtn = document.querySelector('.desc-read-more');
+  var readLessBtn = document.querySelector('.desc-read-less');
+  var shortDesc = document.querySelector('.desc-short');
+  var fullDesc = document.querySelector('.desc-full');
+  if(readMoreBtn && readLessBtn && shortDesc && fullDesc) {
+    readMoreBtn.addEventListener('click', function() {
+      shortDesc.style.display = 'none';
+      fullDesc.style.display = 'inline';
+      readMoreBtn.style.display = 'none';
+      readLessBtn.style.display = 'inline';
+    });
+    readLessBtn.addEventListener('click', function() {
+      shortDesc.style.display = 'inline';
+      fullDesc.style.display = 'none';
+      readMoreBtn.style.display = 'inline';
+      readLessBtn.style.display = 'none';
+    });
+  }
+});
 //reviews load more
 document.addEventListener('DOMContentLoaded', function() {
   var reviews = document.querySelectorAll('.reviews-list .review-item');
@@ -1071,6 +1161,24 @@ function togglePricingFields() {
   document.getElementById('freeFields').style.display = (pricing === 'free') ? 'block' : 'none';
   document.getElementById('paidFields').style.display = (pricing === 'paid') ? 'block' : 'none';
 }
+function showReplyForm(commentId) {
+  var form = document.getElementById('reply-form-' + commentId);
+  if (form.style.display === 'none') {
+    form.style.display = 'block';
+  } else {
+    form.style.display = 'none';
+  }
+}
+
+function toggleReplies(commentId) {
+  var replies = document.getElementById('replies-' + commentId);
+  if (replies.style.display === 'none') {
+    replies.style.display = 'block';
+  } else {
+    replies.style.display = 'none';
+  }
+}
+
 
 function displayInstructorInfo() {
   var select = document.getElementById('instructorSelect');

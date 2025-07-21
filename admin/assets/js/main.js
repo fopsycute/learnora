@@ -157,6 +157,124 @@ document.querySelectorAll('a.read').forEach(link => {
 });
 
 
+
+document.querySelectorAll('.delete-image').forEach(button => {
+  button.addEventListener('click', function() {
+      if (confirm('Are you sure you want to delete this image?')) {
+          let imageId = this.getAttribute('data-image-id');
+          fetch(`delete_image.php?action=deleteimage&image_id=${imageId}`, {
+              method: 'GET'
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  this.closest('.image-preview').remove();
+                  showToast('Image deleted successfully.');
+              } else {
+                  alert('Failed to delete image.');
+              }
+          })
+          .catch(error => {
+              console.error('Error deleting image:', error);
+          });
+      }
+  });
+});
+
+
+document.querySelectorAll('.delete-guidance-video').forEach(button => {
+  button.addEventListener('click', function() {
+      if (confirm('Are you sure you want to delete this file?')) {
+          let imageId = this.getAttribute('data-image-id');
+          fetch(`delete_image.php?action=deleteguidancevideo&image_id=${imageId}`, {
+              method: 'GET'
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  this.closest('.file-preview').remove();
+                  showToast('File deleted successfully.');
+              } else {
+                  alert('Failed to delete file.');
+              }
+          })
+          .catch(error => {
+              console.error('Error deleting file:', error);
+          });
+      }
+  });
+});
+
+
+document.querySelectorAll('.delete-promo-video').forEach(button => {
+  button.addEventListener('click', function() {
+      if (confirm('Are you sure you want to delete this file?')) {
+          let imageId = this.getAttribute('data-image-id');
+          fetch(`delete_image.php?action=deletepromovideo&image_id=${imageId}`, {
+              method: 'GET'
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  this.closest('.file-preview').remove();
+                  showToast('File deleted successfully.');
+              } else {
+                  alert('Failed to delete file.');
+              }
+          })
+          .catch(error => {
+              console.error('Error deleting file:', error);
+          });
+      }
+  });
+});
+
+document.querySelectorAll('.delete-quiz-file').forEach(button => {
+  button.addEventListener('click', function () {
+    if (confirm('Are you sure you want to delete this quiz file?')) {
+      const file = this.getAttribute('data-file');
+      const trainingId = this.getAttribute('data-id');
+      const listItem = this.closest('li');
+
+      fetch(`delete_image.php?action=deletequizfile&training_id=${trainingId}&file=${encodeURIComponent(file)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            listItem.remove();
+            showToast('Quiz file deleted.');
+          } else {
+            alert('Error: ' + (data.message || 'Could not delete file.'));
+          }
+        })
+        .catch(err => {
+          console.error('Fetch error:', err);
+        });
+    }
+  });
+});
+
+
+document.querySelectorAll('.delete-text-module').forEach(button => {
+  button.addEventListener('click', function () {
+    if (confirm('Are you sure you want to delete this text module?')) {
+      const id = this.getAttribute('data-id');
+      fetch(`delete_text_module.php?action=deletetextmodule&id=${id}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById('text_' + id).remove();
+          } else {
+            alert('Failed to delete file.');
+          }
+        })
+        .catch(err => {
+          console.error('Error deleting file:', err);
+        });
+    }
+  });
+});
+
+
 function previewProfilePicture(event) {
   var reader = new FileReader();
   reader.onload = function(){

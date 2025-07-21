@@ -19,15 +19,7 @@ function handleFileUpload($fileKey, $uploadDir, $fileName = null) {
         return "No file uploaded or an error occurred.";
     }
 }
-function deleteCommentAndReplies($comment_id, $con) {
-    // Delete all child comments recursively
-    $childRes = mysqli_query($con, "SELECT s FROM ln_comments WHERE parent_comment_id='$comment_id'");
-    while ($child = mysqli_fetch_assoc($childRes)) {
-        deleteCommentAndReplies($child['s'], $con);
-    }
-    // Delete this comment
-    mysqli_query($con, "DELETE FROM ln_comments WHERE s='$comment_id'");
-}
+
 function renderForumCommentsModern($parent_id, $forum_id, $con, $siteprefix, $imagePath, $level = 0) {
     $parent_condition = ($parent_id === '0' || $parent_id === 0 || $parent_id === '' || $parent_id === null)
         ? "(parent_comment_id='' OR parent_comment_id='0')" 
@@ -834,6 +826,35 @@ function getRatingBar($star, $count, $total) {
             <div class='rating-count'>{$count}</div>
         </div>
     ";
+}
+
+function renderReplies($parent_id, $forum_id, $con, $siteprefix, $imagePath, $user_id) {
+    $replies = mysqli_query($con, "SELECT * FROM ln_comments WHERE parent_comment_id='$parent_id' ORDER BY commented_time ASC");
+    while ($reply = mysqli_fetch_assoc($replies)) {
+        $replyUserRes = mysqli_query($con, "SELECT display_name, profile_photo FROM {$siteprefix}users WHERE s='{$reply['user_id']}' LIMIT 1");
+        $replyUser = mysqli_fetch_assoc($replyUserRes);
+        $replyAvatar = !empty($replyUser['profile_photo'])
+            ? $imagePath . $replyUser['profile_photo']
+            : $imagePath . 'user-avatar.png';
+        $replyUsername = $replyUser['display_name'] ?? 'User';
+
+        // Count nested replies
+        $nestedCountRes = mysqli_query($con, "SELECT COUNT(*) as cnt FROM ln_comments WHERE parent_comment_id='{$reply['s']}'");
+        $nestedCount = mysqli_fetch_assoc($nestedCountRes)['cnt'];
+
+        // Include the reply card
+        include 'reply.php';
+    }
+}
+
+function deleteCommentAndReplies($comment_id, $con) {
+    // Delete all child comments recursively
+    $childRes = mysqli_query($con, "SELECT s FROM ln_comments WHERE parent_comment_id='$comment_id'");
+    while ($child = mysqli_fetch_assoc($childRes)) {
+        deleteCommentAndReplies($child['s'], $con);
+    }
+    // Delete this comment
+    mysqli_query($con, "DELETE FROM ln_comments WHERE s='$comment_id'");
 }
 
 

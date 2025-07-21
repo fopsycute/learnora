@@ -1,13 +1,13 @@
 <?php
 include "../../backend/connect.php"; 
-$siteprefix="fm_";
+$siteprefix="ln_";
 $action = $_GET['action'];
 
 
 if($action == 'deleteimage'){
     // Fetch the image file name
     $image_id = $_GET['image_id'];
-    $query = "SELECT picture FROM ".$siteprefix."reports_images WHERE id = ?";
+    $query = "SELECT picture FROM ".$siteprefix."training_images WHERE s = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("i", $image_id);
     $stmt->execute();
@@ -23,7 +23,7 @@ if($action == 'deleteimage'){
         }
 
         // Delete the image record from the database
-        $delete_query = "DELETE FROM ".$siteprefix."reports_images WHERE id = ?";
+        $delete_query = "DELETE FROM ".$siteprefix."training_images WHERE s = ?";
         $delete_stmt = $con->prepare($delete_query);
         $delete_stmt->bind_param("i", $image_id);
         $delete_stmt->execute();
@@ -92,12 +92,60 @@ if($action == 'deletecart'){
     }
 }
 
+if ($_GET['action'] === 'deletequizfile') {
+    $training_id = mysqli_real_escape_string($con, $_GET['training_id']);
+    $fileToDelete = $_GET['file'];
 
+    // Get existing file_path field
+    $query = mysqli_query($con, "SELECT file_path FROM {$siteprefix}training_quizzes WHERE training_id = '$training_id' AND type = 'upload' ORDER BY s DESC LIMIT 1");
+    $quiz = mysqli_fetch_assoc($query);
 
-if($action == 'deleteguidancevideo'){
+    if ($quiz && !empty($quiz['file_path'])) {
+        $files = explode(',', $quiz['file_path']);
+        $files = array_map('trim', $files);
+
+        // Remove the selected file
+        $updatedFiles = array_filter($files, function ($f) use ($fileToDelete) {
+            return $f !== $fileToDelete;
+        });
+
+        // Delete file from server
+        $filePath = "../../documents/" . $fileToDelete;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        // Update the DB
+        $newPath = implode(',', $updatedFiles);
+        $update = mysqli_query($con, "UPDATE {$siteprefix}training_quizzes SET file_path = '$newPath' WHERE training_id = '$training_id' AND type = 'upload'");
+
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Quiz file not found.']);
+    }
+    exit;
+}
+
+if ($_GET['action'] === 'deletetextmodule' && isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+
+    $query = mysqli_query($con, "SELECT file_path FROM {$siteprefix}training_text_modules WHERE s = '$id' LIMIT 1");
+    if ($row = mysqli_fetch_assoc($query)) {
+        $file_path = '../../documents/' . $row['file_path'];
+        if (file_exists($file_path)) unlink($file_path);
+
+        mysqli_query($con, "DELETE FROM {$siteprefix}training_text_modules WHERE s = '$id'");
+        echo json_encode(['success' => true]);
+        exit;
+    }
+}
+
+echo json_encode(['success' => false]);
+
+if($action == 'deletepromovideo'){
    $image_id = $_GET['image_id'];
     // Fetch the video file name
-    $query = "SELECT video_filename FROM ".$siteprefix."guidance WHERE s = ?";
+    $query = "SELECT video_path FROM ".$siteprefix."training_videos WHERE s = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("i", $image_id);
     $stmt->execute();
@@ -107,13 +155,13 @@ if($action == 'deleteguidancevideo'){
 
     if ($video) {
         // Delete the video file from the server
-        $file_path = '../../uploads/' . $video['video_filename'];
+        $file_path = '../../documents/' . $video['video_path'];
         if (file_exists($file_path)) {
             unlink($file_path);
         }
 
         // Delete the video record from the database
-        $delete_query = "DELETE FROM ".$siteprefix."guidance WHERE s = ?";
+        $delete_query = "DELETE FROM ".$siteprefix."training_videos WHERE s = ?";
         $delete_stmt = $con->prepare($delete_query);
         $delete_stmt->bind_param("i", $image_id);
         $delete_stmt->execute();
@@ -121,7 +169,38 @@ if($action == 'deleteguidancevideo'){
 
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Guidance video not found.']);
+        echo json_encode(['success' => false, 'message' => ' video not found.']);
+    }
+}
+
+if($action == 'deleteguidancevideo'){
+   $image_id = $_GET['image_id'];
+    // Fetch the video file name
+    $query = "SELECT 	video_path FROM ".$siteprefix."training_videos WHERE s = ?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("i", $image_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $video = $result->fetch_assoc();
+    $stmt->close();
+
+    if ($video) {
+        // Delete the video file from the server
+        $file_path = '../../documents/' . $video['video_path'];
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+
+        // Delete the video record from the database
+        $delete_query = "DELETE FROM ".$siteprefix."training_videos WHERE s = ?";
+        $delete_stmt = $con->prepare($delete_query);
+        $delete_stmt->bind_param("i", $image_id);
+        $delete_stmt->execute();
+        $delete_stmt->close();
+
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => ' video not found.']);
     }
 }
 

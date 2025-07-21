@@ -71,7 +71,6 @@ $selected_resource_type = explode(',', $row['use_case'] ?? ''); // assuming stor
                                echo '<button type="button" class="delete-btn delete-image" data-image-id="' .$image_row['id'] . '">X</button>';
                                echo '</div>';
                            }
-                       
                         ?>
                         </div>
                         <label class="form-label" for="imageInput">Upload New Images</label>

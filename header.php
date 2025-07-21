@@ -79,7 +79,7 @@ include "backend/actions.php";
 //exclude pages tht require user to be logged in
 $current_page = basename($_SERVER['PHP_SELF']);
 $excluded_pages = array('cart.php', 'pay_success.php',  'checkout.php', 'free_order_handler.php',
-'dashboard.php','loyalty-status.php','my_orders.php','manual_orders.php', 'wallet.php','blog.php',
+'dashboard.php','loyalty-status.php','my_orders.php','manual_orders.php', 'wallet.php','contact.php',
 'notifications.php','sales.php','reviews.php','my_orders.php','order_details.php','settings.php','tickets.php',
 'change-password.php','create_ticket.php','saved-models.php','add-training.php','all-training.php',
 'withdrawhistory.php','my_wishlist.php');
@@ -110,7 +110,7 @@ if (in_array($current_page, $excluded_pages)) {
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="<?php echo $siteurl; ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -129,30 +129,28 @@ if (in_array($current_page, $excluded_pages)) {
 
   <header id="header" class="header position-relative">
     <!-- Top Bar -->
-    <div class="top-bar py-2 d-lg-block">
+  <!-- Top Bar -->
+    <div class="top-bar py-2 d-none d-lg-block">
       <div class="container-fluid container-xl">
         <div class="row align-items-center">
-           
-          <!-- Add this block for your links, visible on all screens -->
-<div class="col-12 my-2 my-lg-0">
-  <ul class="list-unstyled d-flex flex-wrap mb-0 justify-content-center justify-content-lg-start">
-    <li class="bg-secondary text-white p-2 m-1">
-      <a class="text-white text-small" href="<?php echo $siteurl; ?>loyalty-program.php">Loyalty Program</a>
-    </li>
-    <li class="bg-primary text-white p-2 m-1">
-      <a class="text-white text-small" href="<?php echo $siteurl; ?>affiliate-details.php">Affiliate Program</a>
-    </li>
-    <li class="bg-secondary text-white p-2 m-1 ">
-      <a class="text-white text-small" href="<?php echo $siteurl; ?>marketplace.php">Marketplace</a>
-    </li>
-     <?php if($active_log==0){ ?>
-                    <li class="bg-primary p-2 m-1"><a class="text-white text-small" href="<?php echo $siteurl; ?>become_a_trainer.php">Become a Trainer</a></li>
-                    <?php } else {?>
-                    <li class="bg-primary p-2 m-1"><a class="text-white text-small" href="<?php echo $siteurl; ?>logout.php">Logout</a></li>
-                    <?php } ?>
-  </ul>
-</div>
-          
+          <div class="col-lg-6">
+            <div class="d-flex align-items-center">
+              <div class="top-bar-item me-4">
+                <i class="bi bi-telephone-fill me-2"></i>
+                <span>Customer Support: </span>
+                <a href="tel:<?php echo $sitenumber; ?>"><?php echo $sitenumber; ?></a>
+              </div>
+              <div class="top-bar-item">
+                <i class="bi bi-envelope-fill me-2"></i>
+                <a href="mailto:<?php echo $sitemail; ?>"><?php echo $sitemail; ?></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="d-flex justify-content-end">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -192,6 +190,7 @@ if (in_array($current_page, $excluded_pages)) {
             <div class="dropdown account-dropdown">
               <button class="header-action-btn" data-bs-toggle="dropdown">
                 <i class="bi bi-person"></i>
+                   <span class="action-text d-none d-md-inline-block">Account</span>
               </button>
             <div class="dropdown-menu">
   <div class="dropdown-header">
@@ -239,6 +238,7 @@ if (isset($user_id) && !empty($user_id)) {
 ?>
           <a href="<?php echo $siteurl; ?>my_wishlist" class="header-action-btn d-none d-md-block">
   <i class="bi bi-heart"></i>
+  <span class="action-text d-none d-md-inline-block">Wishlist</span>
   <span class="badge wishlist-count"><?php echo $wishlist_count; ?></span>
 </a>
 
@@ -248,6 +248,7 @@ if (isset($user_id) && !empty($user_id)) {
                 $cart_count = getCartCount($con, $siteprefix, $order_id);
                      ?>
               <i class="bi bi-cart3"></i>
+              <span class="action-text d-none d-md-inline-block">Cart</span>
                <?php if($cart_count >= 0): ?>
               <span class="badge cart-count"><?php echo $cart_count; ?></span>
               <?php endif; ?>
@@ -269,7 +270,7 @@ if (isset($user_id) && !empty($user_id)) {
             <ul>
               <li><a href="<?php echo $siteurl; ?>index.php" class="active">Home</a></li>
               <li><a href="<?php echo $siteurl; ?>about.php">About Us</a></li>
-            <!---  <li><a href="<?php echo $siteurl; ?>blog.php">Blog</a></li> --->
+         <li><a href="<?php echo $siteurl; ?>blog.php">Blog</a></li>
               <li><a href="<?php echo $siteurl; ?>loyalty-program.php">Loyalty Program</a></li>
 
 
@@ -321,6 +322,39 @@ if (isset($user_id) && !empty($user_id)) {
             </ul>
           </nav>
         </div>
+      </div>
+    </div>
+
+       <!-- Announcement Bar -->
+    <div class="announcement-bar py-2">
+      <div class="container-fluid container-xl">
+    <div class="row align-items-center">
+      <div class="col-12 my-2 my-lg-0">
+        <ul class="list-unstyled d-flex flex-wrap mb-0 justify-content-center justify-content-lg-center">
+          <li>
+            <a class="text-white text-small" href="<?php echo $siteurl; ?>loyalty-program.php">Loyalty Program</a>
+          </li>
+          <li>&nbsp;|&nbsp</li>
+          <li>
+            <a class="text-white text-small" href="<?php echo $siteurl; ?>affiliate-details.php">Affiliate Program</a>
+          </li>
+          <li>&nbsp;|&nbsp</li>
+          <li>
+            <a class="text-white text-small" href="<?php echo $siteurl; ?>marketplace.php">Marketplace</a>
+          </li>
+          <li>&nbsp;|&nbsp</li>
+          <?php if($active_log==0){ ?>
+            <li>
+              <a class="text-white text-small" href="<?php echo $siteurl; ?>become_a_trainer.php">Become a Trainer</a>
+            </li>
+          <?php } else { ?>
+            <li>
+              <a class="text-white text-small" href="<?php echo $siteurl; ?>logout.php">Logout</a>
+            </li>
+          <?php } ?>
+        </ul>
+      </div>
+    </div>
       </div>
     </div>
 

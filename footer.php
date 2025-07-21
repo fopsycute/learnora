@@ -27,7 +27,7 @@
 
           <div class="col-lg-2 col-md-6 col-sm-6">
             <div class="footer-widget">
-              <h4>Shop</h4>
+              <h4>Company</h4>
               <ul class="footer-links">
                 <li><a href="<?php echo $siteurl; ?>about.php">About Us</a></li>
                 <li><a href="<?php echo $siteurl; ?>contact.php">Contact Us</a></li>
@@ -35,21 +35,26 @@
                 <li><a href="<?php echo $siteurl; ?>cookie-policy">Cookie Policy</a></li>
                 <li><a href="<?php echo $siteurl; ?>terms">Terms of Use</a></li>
                 <li><a href="<?php echo $siteurl; ?>why-us">Why Us?</a></li>
-                <li><a href="<?php echo $siteurl; ?>blog">News and Press Releases</a></li>
+                <li><a href="<?php echo $siteurl; ?>disclaimer">Disclaimer</a></li>
+                <li><a href="<?php echo $siteurl; ?>blog">Blog</a></li>
               </ul>
             </div>
           </div>
 
           <div class="col-lg-2 col-md-6 col-sm-6">
             <div class="footer-widget">
-              <h4>Support</h4>
+              <h4>Categories</h4>
               <ul class="footer-links">
-                <li><a href="support.html">Help Center</a></li>
-                <li><a href="account.html">Order Status</a></li>
-                <li><a href="shiping-info.html">Shipping Info</a></li>
-                <li><a href="return-policy.html">Returns &amp; Exchanges</a></li>
-                <li><a href="#">Size Guide</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+               <?php
+                $sql = "SELECT * FROM " . $siteprefix . "categories WHERE parent_id IS NULL LIMIT 6";
+                $sql2 = mysqli_query($con, $sql);
+                while ($row = mysqli_fetch_array($sql2)) {
+                    $category_name = $row['category_name'];
+                    $alt_names = $row['slug'];
+                    $slugs = $alt_names;
+                    echo '<li><a href="'.$siteurl.'category/' . $slugs . '">' . $category_name . '</a></li>';
+                }
+                ?>
               </ul>
             </div>
           </div>
@@ -60,32 +65,20 @@
               <div class="footer-contact">
                 <div class="contact-item">
                   <i class="bi bi-geo-alt"></i>
-                  <span>123 Fashion Street, New York, NY 10001</span>
+                  <span>61-65 Egbe- Isolo Road, Iyana Ejigbo Shopping Arcade, Block A, Suite 19, Iyana Ejigbo Bus Stop, Ejigbo, Lagos.</span>
                 </div>
                 <div class="contact-item">
                   <i class="bi bi-telephone"></i>
-                  <span>+1 (555) 123-4567</span>
+                  <span><?php echo $sitenumber; ?></span>
                 </div>
                 <div class="contact-item">
                   <i class="bi bi-envelope"></i>
-                  <span>hello@example.com</span>
+                  <span><?php echo $sitemail; ?></span>
                 </div>
-                <div class="contact-item">
-                  <i class="bi bi-clock"></i>
-                  <span>Monday-Friday: 9am-6pm<br>Saturday: 10am-4pm<br>Sunday: Closed</span>
-                </div>
+                
               </div>
 
-              <div class="app-buttons mt-4">
-                <a href="#" class="app-btn">
-                  <i class="bi bi-apple"></i>
-                  <span>App Store</span>
-                </a>
-                <a href="#" class="app-btn">
-                  <i class="bi bi-google-play"></i>
-                  <span>Google Play</span>
-                </a>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -97,14 +90,14 @@
         <div class="row gy-3 align-items-center">
           <div class="col-lg-6 col-md-12">
             <div class="copyright">
-              <p>© <span>Copyright</span> <strong class="sitename">MyWebsite</strong>. All Rights Reserved.</p>
+              <p>© <span>Copyright</span> <strong class="sitename"><?php echo $sitename; ?></strong>. All Rights Reserved.</p>
             </div>
             <div class="credits mt-1">
               <!-- All the links in the footer should remain intact. -->
               <!-- You can delete the links only if you've purchased the pro version. -->
               <!-- Licensing information: https://bootstrapmade.com/license/ -->
               <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+         
             </div>
           </div>
 
@@ -122,9 +115,9 @@
               </div>
 
               <div class="legal-links">
-                <a href="tos.html">Terms</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="tos.html">Cookies</a>
+                <a href="<?php echo $siteurl; ?>terms">Terms</a>
+                <a href="<?php echo $siteurl; ?>privacy-policy">Privacy</a>
+                <a href="<?php echo $siteurl; ?>cookie-policy.php">Cookies</a>
               </div>
             </div>
           </div>

@@ -308,6 +308,125 @@ if(isset($_POST['register-newuser'])){
 }
 
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit-message'])) {
+    $name = mysqli_real_escape_string($con, $_POST['name'] ?? '');
+    $email = mysqli_real_escape_string($con, $_POST['email'] ?? '');
+    $subject = mysqli_real_escape_string($con, $_POST['subject'] ?? '');
+    $message = mysqli_real_escape_string($con, $_POST['message'] ?? '');
+
+    if ($name && $email && $subject && $message) {
+        // Insert into contact_messages table (create this table if not exists)
+        $insert_sql = "INSERT INTO {$siteprefix}contact_messages 
+            (name, email, subject, message, created_at)
+            VALUES 
+            ('$name', '$email', '$subject', '$message', NOW())";
+        $insert_result = mysqli_query($con, $insert_sql);
+
+        if ($insert_result) {
+            // Send email to admin
+            $emailSubject = "New Contact Message: $subject";
+            $emailMessage = "
+                <p><strong>Name:</strong> $name</p>
+                <p><strong>Email:</strong> $email</p>
+                <p><strong>Subject:</strong> $subject</p>
+                <p><strong>Message:</strong><br>$message</p>
+            ";
+            sendEmail($siteMail, $sitename, $siteName, $siteMail, $emailMessage, $emailSubject);
+
+            showSuccessModal("Success!", "Your message has been sent successfully!");
+            header("refresh:1;");
+        } else {
+            showErrorModal("Error!", "Failed to send your message: " . mysqli_error($con));
+        }
+    } else {
+        showErrorModal("Error!", "All fields are required.");
+    }
+}
+
+
+// Blog Comment Submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_comment'])) {
+    $blog_id = mysqli_real_escape_string($con, $_POST['blog_id']);
+    $user_id = mysqli_real_escape_string($con, $_POST['user']);
+    $comment = mysqli_real_escape_string($con, trim($_POST['comment']));
+    $parent_comment_id = '';
+    $commented_time = date('Y-m-d H:i:s');
+
+    if ($blog_id && $user_id && $comment) {
+        $insert_query = "INSERT INTO ln_comments (blog_id, comments, user_id, commented_time, parent_comment_id) 
+                         VALUES ('$blog_id', '$comment', '$user_id', '$commented_time', '$parent_comment_id')";
+        if (mysqli_query($con, $insert_query)) {
+            $statusAction = "Success!";
+            $statusMessage = "Your comment has been posted successfully!";
+            showSuccessModal($statusAction, $statusMessage);
+            // Redirect to avoid resubmission
+            header("refresh:1;");
+        
+        } else {
+            $statusAction = "Error!";
+            $statusMessage = "An error occurred while posting your comment. Please try again.";
+            showErrorModal($statusAction, $statusMessage);
+        }
+    } else {
+        $statusAction = "Error!";
+        $statusMessage = "All fields are required.";
+        showErrorModal($statusAction, $statusMessage);
+    }
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment_id']) && isset($_POST['delete_comment'])) {
+    $delete_comment_id = mysqli_real_escape_string($con, $_POST['delete_comment_id']);
+    // Check if the logged-in user owns the comment
+    $checkRes = mysqli_query($con, "SELECT user_id FROM ln_comments WHERE s='$delete_comment_id' LIMIT 1");
+    $checkRow = mysqli_fetch_assoc($checkRes);
+    if ($checkRow && $checkRow['user_id'] == $user_id) {
+        deleteCommentAndReplies($delete_comment_id, $con);
+        $statusAction = "Deleted!";
+        $statusMessage = "Comment and all its replies deleted successfully.";
+        showSuccessModal($statusAction, $statusMessage);
+        header("refresh:1;");
+       
+    } else {
+        $statusAction = "Error!";
+        $statusMessage = "You are not allowed to delete this comment.";
+        showErrorModal($statusAction, $statusMessage);
+    }
+}
+
+
+
+// Blog Comment Submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_reply_comment'])) {
+    $blog_id = mysqli_real_escape_string($con, $_POST['blog_id']);
+    $user_id = mysqli_real_escape_string($con, $_POST['user']);
+    $comment = mysqli_real_escape_string($con, trim($_POST['comment']));
+    $parent_comment_id = mysqli_real_escape_string($con, trim($_POST['parent_comment_id']));
+    $commented_time = date('Y-m-d H:i:s');
+
+    if ($blog_id && $user_id && $comment) {
+        $insert_query = "INSERT INTO ln_comments (blog_id, comments, user_id, commented_time, parent_comment_id) 
+                         VALUES ('$blog_id', '$comment', '$user_id', '$commented_time', '$parent_comment_id')";
+        if (mysqli_query($con, $insert_query)) {
+            $statusAction = "Success!";
+            $statusMessage = "Your comment has been posted successfully!";
+            showSuccessModal($statusAction, $statusMessage);
+            // Redirect to avoid resubmission
+            header("refresh:1;");
+        
+        } else {
+            $statusAction = "Error!";
+            $statusMessage = "An error occurred while posting your comment. Please try again.";
+            showErrorModal($statusAction, $statusMessage);
+        }
+    } else {
+        $statusAction = "Error!";
+        $statusMessage = "All fields are required.";
+        showErrorModal($statusAction, $statusMessage);
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_event'])) {
 
         // Directories for uploads

@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
                             <label class="form-label" for="first_name">Attach Featured Image</label>
                             <?php if (!empty($current_image)): ?>
                                 <div class="mb-2">
-                                    <img src="../../uploads/<?php echo htmlspecialchars($current_image); ?>" alt="Featured Image" style="max-width: 120px; max-height: 120px; border-radius: 8px;">
+                                    <img src="<?php echo $siteurl; ?>uploads/<?php echo htmlspecialchars($current_image); ?>" alt="Featured Image" style="max-width: 120px; max-height: 120px; border-radius: 8px;">
                                 </div>
                             <?php endif; ?>
                             <input class="form-control" type="file" id="imageInput" name="featured_image">
