@@ -15,8 +15,8 @@ if (mysqli_affected_rows($con) == 0) {
     $sql = "SELECT * FROM ".$siteprefix."users  WHERE s  = '".$code."'";
     $sql2 = mysqli_query($con, $sql);
     while ($row = mysqli_fetch_array($sql2)) {
-        $id = $row["s"];
-         $title                = $row['title'];
+    $id = $row["s"];
+    $title                = $row['title'];
     $display_name         = $row['display_name'];
     $first_name           = $row['first_name'];
     $middle_name          = $row['middle_name'];

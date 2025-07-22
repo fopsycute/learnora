@@ -56,7 +56,7 @@
 <script>
   function confirmCategoryDelete(table, item, page) {
     if (confirm("Are you sure you want to delete this category?\n\n⚠️ All subcategories under it will also be deleted!")) {
-      window.location.href = `delete?action=deletecategory&table=${table}&item=${item}&page=${page}`;
+      window.location.href = `delete.php?action=deletecategory&table=${table}&item=${item}&page=${page}`;
     }
   }
 </script>
