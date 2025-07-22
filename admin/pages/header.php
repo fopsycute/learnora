@@ -72,12 +72,7 @@ include "actions.php";
 
 //exclude pages tht require user to be aadmin
 $current_page = basename($_SERVER['PHP_SELF']);
-$excluded_pages = array('transactions', 'add-plan', 'plans', 'send-message','pending-withdrawals','pending-orders','manual_orders');
-if (in_array($current_page, $excluded_pages)) {
-redirectToDashboardIfSubAdmin();
-} else {
-    //ifLoggedin($active_log);
-}
+
 
 ?>
 
