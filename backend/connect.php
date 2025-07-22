@@ -27,8 +27,8 @@ $adminimagePath='../../uploads/';
 $sitecurrency="₦";
 $sitecurrencyCode="&#8358;";
 $documentPath='documents/';
-$affiliateurl='https://affiliate.learnora.projectreporthub.ng/';
-$adminurl='https://admin.learnora.projectreporthub.ng/';
+$affiliateurl='https://learnora.affiliate.projectreporthub.ng/';
+$adminurl='https://learnora.admin.projectreporthub.ng/';
 /*
 $affiliateurl='https://affiliate.learnora.ng/';
 
