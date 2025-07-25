@@ -1,4 +1,5 @@
-<?php include "../../backend/connect.php"; 
+<?php
+ include "../../backend/connect.php"; 
 
 error_reporting(E_ALL); ini_set('display_errors', 1); ini_set('log_errors', 1);
 $_SESSION['previous_page'] = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -68,11 +69,14 @@ if ($active_log == 0 && $user_type != 'admin') {
   exit;
 }
 include "actions.php"; 
-
-
 //exclude pages tht require user to be aadmin
 $current_page = basename($_SERVER['PHP_SELF']);
-
+$excluded_pages = array('transactions.php', 'add-plan.php', 'plans.php', 'send-message.php','pending-withdrawals.php','pending-orders.php','manual_orders.php');
+if (in_array($current_page, $excluded_pages)) {
+redirectToDashboardIfSubAdmin();
+} else {
+    //ifLoggedin($active_log);
+}
 
 ?>
 

@@ -19,7 +19,9 @@ if (isset($trainer) && $trainer == 1) {
     generateLink('saved-training.php', 'ti-edit', 'Draft', $current_page);
     generateLink('wallet.php', 'ti-wallet', 'Wallet', $current_page);
 }
+
 generateLink('dashboard.php', 'bi-anchor', 'Dashboard', $current_page);
+generateLink('all-training.php', 'bi-book', 'My Training', $current_page);
 generateLink('loyalty-status.php', 'bi-agenda', 'Subscriptions', $current_page);
 generateLink('notifications.php', 'bi-bell', 'Notifications', $current_page);
 generateLink('create_ticket.php', 'bi-book', 'Create New Ticket', $current_page);

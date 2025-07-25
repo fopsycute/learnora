@@ -579,7 +579,7 @@ if ($loyalty_result && mysqli_num_rows($loyalty_result) > 0) {
 
 <div>
 
-<a href="attendees.php?training_id=<?php echo $training_id; ?>" class="btn btn-primary">
+<a href="<?php echo $siteurl; ?>attendees.php?training_id=<?php echo $training_id; ?>" class="btn btn-primary">
     See Who’s Attending
 </a>
 

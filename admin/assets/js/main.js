@@ -311,26 +311,57 @@ function displayInstructorInfo() {
     addFields.style.display = "none";
   }
 }
+  function toggleDeliveryFields() {
+    const format = document.getElementById('deliveryFormat').value;
 
-function toggleDeliveryFields() {
-  const format = document.getElementById('deliveryFormat').value;
-  document.getElementById('physicalFields').style.display = (format === 'physical') ? 'block' : 'none';
-  document.getElementById('onlineFields').style.display = (format === 'online') ? 'block' : 'none';
-  document.getElementById('hybridFields').style.display = (format === 'hybrid') ? 'block' : 'none';
-}
+    document.getElementById('physicalFields').style.display = (format === 'physical') ? 'block' : 'none';
+    document.getElementById('onlineFields').style.display = (format === 'online') ? 'block' : 'none';
+    document.getElementById('hybridFields').style.display = (format === 'hybrid') ? 'block' : 'none';
 
-function togglePhysicalLocationFields() {
-  const type = document.getElementById('physicalLocationType').value;
-  document.getElementById('nigeriaPhysicalFields').style.display = (type === 'nigeria') ? 'block' : 'none';
-  document.getElementById('foreignPhysicalFields').style.display = (type === 'foreign') ? 'block' : 'none';
-}
+    if (format === 'hybrid') {
+      toggleHybridLocationFields(); // call to update hybrid subfields
+    }
+  }
 
+  function toggleHybridLocationFields() {
+    const type = document.getElementById('hybridLocationType').value;
+    const nigeriaFields = document.getElementById('nigeriaHybridFields');
+    const foreignFields = document.getElementById('foreignHybridFields');
 
-function toggleHybridLocationFields() {
-  const type = document.getElementById('hybridLocationType').value;
-  document.getElementById('nigeriaHybridFields').style.display = (type === 'nigeria') ? 'block' : 'none';
-  document.getElementById('foreignHybridFields').style.display = (type === 'foreign') ? 'block' : 'none';
-}
+    // Hide both
+    nigeriaFields.style.display = 'none';
+    foreignFields.style.display = 'none';
+
+    // Clear inputs in both sections first
+    document.querySelectorAll('#nigeriaHybridFields input').forEach(input => input.value = '');
+    document.querySelectorAll('#foreignHybridFields input').forEach(input => input.value = '');
+
+    // Then show and use only the selected section
+    if (type === 'nigeria') {
+      nigeriaFields.style.display = 'block';
+    } else if (type === 'foreign') {
+      foreignFields.style.display = 'block';
+    }
+  }
+
+  function togglePhysicalLocationFields() {
+    const type = document.getElementById('physicalLocationType').value;
+    const nigeriaFields = document.getElementById('nigeriaPhysicalFields');
+    const foreignFields = document.getElementById('foreignPhysicalFields');
+
+    nigeriaFields.style.display = 'none';
+    foreignFields.style.display = 'none';
+
+    // Clear both
+    document.querySelectorAll('#nigeriaPhysicalFields input').forEach(input => input.value = '');
+    document.querySelectorAll('#foreignPhysicalFields input').forEach(input => input.value = '');
+
+    if (type === 'nigeria') {
+      nigeriaFields.style.display = 'block';
+    } else if (type === 'foreign') {
+      foreignFields.style.display = 'block';
+    }
+  }
 
 function addDateTimeRow() {
   const container = document.getElementById('dateTimeRepeater');

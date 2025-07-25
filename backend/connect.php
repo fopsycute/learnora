@@ -14,6 +14,8 @@ $db_username = "projectr_learnorastore";
 $db_pass = "Y34GgwK(]h82Yg"; 
 $db_name = "projectr_learn";
 
+
+
 $con = mysqli_connect ("$db_host","$db_username","$db_pass","$db_name");
 mysqli_query($con, "SET time_zone = '+01:00'"); // Africa/Lagos
 $siteprefix="ln_";
